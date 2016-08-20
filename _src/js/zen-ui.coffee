@@ -26,31 +26,6 @@
 #
 
 
-class UndoTracker
-    constructor: (@renderer) ->
-        @undoQueue = []
-        @redoQueue = []
-
-    checkpoint: ->
-        @undoQueue.push(@checkpointData())
-
-    checkpointData: ->
-        return @renderer.getState()
-
-    restore: (record) ->
-        @renderer.setState(record)
-
-    undo: ->
-        if @undoQueue.length
-            @redoQueue.push(@checkpointData())
-            @restore(@undoQueue.pop())
-
-    redo: ->
-        if @redoQueue.length
-            @checkpoint()
-            @restore(@redoQueue.pop())
-
-
 class GardenUI
     constructor: (canvasId) ->
 

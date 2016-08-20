@@ -42,6 +42,7 @@ COFFEE=./node_modules/coffee-script/bin/coffee
             cat \
                 _src/js/zen-renderer.coffee \
                 _src/js/zen-widgets.coffee \
+                _src/js/zen-undo.coffee \
                 _src/js/zen-ui.coffee \
                 _src/js/zen-setup.coffee
         ) | $COFFEE -p -s
