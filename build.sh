@@ -7,15 +7,16 @@ if [[ $1 == "debug" ]]; then
     MINIFY=cat
     DEBUG_CODE=_src/js/lib/fakeworker-0.1.js
 else
-    MINIFY=jsmin
+    MINIFY=./node_modules/jsmin/bin/jsmin
     DEBUG_CODE=
 fi
+COFFEE=./node_modules/coffee-script/bin/coffee
 
 # Worker thread (plain JS version)
 (
     cat _src/js/header.js
     (
-        coffee -c -p _src/js/worker-noasm.coffee
+        $COFFEE -c -p _src/js/worker-noasm.coffee
     ) | $MINIFY
 ) > ./public/js/rayworker.js
 
@@ -24,7 +25,7 @@ fi
     cat _src/js/header.js
     (
         cat _src/js/worker-asm-core.js
-        coffee -c -p _src/js/worker-asm-shell.coffee
+        $COFFEE -c -p _src/js/worker-asm-shell.coffee
     ) | $MINIFY
 ) > ./public/js/rayworker-asm.js
 
@@ -43,6 +44,6 @@ fi
                 _src/js/zen-widgets.coffee \
                 _src/js/zen-ui.coffee \
                 _src/js/zen-setup.coffee
-        ) | coffee -p -s
+        ) | $COFFEE -p -s
     ) | $MINIFY
 ) > ./public/js/zenphoton.js
