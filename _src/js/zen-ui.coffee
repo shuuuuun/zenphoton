@@ -35,9 +35,8 @@ class GardenUI
         # First thing first, check compatibility. If we're good, hide the error message and show the help.
         # If not, bail out now.
         return unless @renderer.browserSupported()
-        $('#notsupported').hide()
-        $('#help').show()
-        $('#leftColumn, #rightColumn').fadeIn(1000)
+
+        console.log('Not Supported.')
 
         # Set up our 'exposure' slider
         do (e = @exposureSlider = new VSlider $('#exposureSlider'), $('#workspace')) =>
@@ -118,60 +117,12 @@ class GardenUI
             @initMaterialSlider('#transmissiveSlider', 0.0),
         ]
 
-        # Show existing segments when hovering over undo/redo/clear
-        $('.show-segments-on-hover')
-            .mouseenter (e) =>
-                @renderer.showSegments++
-                @renderer.redraw()
-            .mouseleave (e) =>
-                @renderer.showSegments--
-                @renderer.redraw()
-
-        $('#clearButton').button()
-            .click (e) =>
-                return if !@renderer.segments.length and @renderer.isDefaultLightSource()
-                @undo.checkpoint()
-                @renderer.segments = []
-                @renderer.setDefaultLightSource()
-                @renderer.clear()
-                @updateLink()
-
-        $('#undoButton').button()
-            .hotkey('ctrl+z')
-            .hotkey('meta+z')
-            .click (e) =>
-                @undo.undo()
-                @exposureSlider.setValue(@renderer.exposure)
-                @updateLink()
-
-        $('#redoButton').button()
-            .hotkey('ctrl+y')
-            .hotkey('meta+shift+z')
-            .click (e) =>
-                @undo.redo()
-                @exposureSlider.setValue(@renderer.exposure)
-                @updateLink()
-
-        $('#pngButton').button()
-            .click () =>
-                document.location.href = @renderer.toDataURL('image/png').replace('image/png', 'image/octet-stream')
-
-        $('#linkButton').button()
-            .click () =>
-                @updateLink()
-                window.prompt("Copy this URL to share your garden.", document.location)
-
         # Load saved state, if any
         saved = document.location.hash.replace('#', '')
         if saved
             @renderer.setStateBlob(atob(saved))
             @exposureSlider.setValue(@renderer.exposure)
         @renderer.clear()
-
-        # If the scene is empty, let our 'first run' help show through.
-        # This fades out when the first segment is drawn.
-        if @renderer.segments.length
-            $('#help').hide()
 
     updateLink: ->
         document.location.hash = btoa @renderer.getStateBlob()
