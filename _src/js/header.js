@@ -1,4 +1,5 @@
 /*
+    @license
 
     Zen Photon Garden.
     https://github.com/scanlime/zenphoton
