@@ -26,6 +26,7 @@
 #
 
 $ = require 'jquery'
+TestAsmJs = require './lib/asmjs-feature-test'
 Segment = require './zen-segment.coffee'
 
 

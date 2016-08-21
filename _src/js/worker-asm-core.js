@@ -519,3 +519,5 @@ function AsmModule (stdlib, foreign, heap) {
         renderLoop: renderLoop,
     };
 }
+
+module.exports = AsmModule;

@@ -41,3 +41,5 @@ function TestAsmJs () {
 
     return ("" + m.x).indexOf("native") >= 0;
 }
+
+module.exports = TestAsmJs;
