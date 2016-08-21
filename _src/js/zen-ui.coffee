@@ -28,7 +28,6 @@
 $ = require 'jquery'
 Segment = require './zen-segment.coffee'
 Renderer = require './zen-renderer.coffee'
-Widgets = require './zen-widgets.coffee'
 UndoTracker = require './zen-undo.coffee'
 
 
@@ -43,13 +42,6 @@ class GardenUI
         unless @renderer.browserSupported()
             console.log('Not Supported.')
             return
-
-        # Set up our 'exposure' slider
-        do (e = @exposureSlider = new Widgets.VSlider $('#exposureSlider'), $('#workspace')) =>
-            e.setValue(@renderer.exposure)
-            e.valueChanged = (v) => @renderer.setExposure(v)
-            e.beginChange = () => @undo.checkpoint()
-            e.endChange = () => @updateLink()
 
         @renderer.callback = () =>
             $('#raysTraced').text(@renderer.raysTraced)
@@ -117,17 +109,16 @@ class GardenUI
                     @renderer.clear()
                     e.preventDefault()
 
-        @material = [
-            @initMaterialSlider('#diffuseSlider', 1.0),
-            @initMaterialSlider('#reflectiveSlider', 0.0),
-            @initMaterialSlider('#transmissiveSlider', 0.0),
-        ]
+        @material = {
+            diffuse: 1.0,
+            reflective: 0.0,
+            transmissive: 0.0,
+        }
 
         # Load saved state, if any
         saved = document.location.hash.replace('#', '')
         if saved
             @renderer.setStateBlob(atob(saved))
-            @exposureSlider.setValue(@renderer.exposure)
         @renderer.clear()
 
     updateLink: ->
@@ -138,12 +129,11 @@ class GardenUI
         return [e.pageX - o.left, e.pageY - o.top]
 
     lineToolBegin: (e) ->
-        $('#help').fadeOut(2000)
         @undo.checkpoint()
 
         [x, y] = @mouseXY e
         @renderer.segments.push(new Segment(x, y, x, y,
-            @material[0].value, @material[1].value, @material[2].value))
+            @material.diffuse, @material.reflective, @material.transmissive))
 
         @drawingSegment = true
         @renderer.showSegments++
@@ -153,7 +143,7 @@ class GardenUI
         # Update a line segment previously started with beginLine
 
         s = @renderer.segments[@renderer.segments.length - 1]
-        [s.x1, s.y1] = @mouseXY e
+        [s.x1, s.y1] = @mouseXY e if s
 
         @renderer.clear()   # Asynchronously start rendering the new scene
         @renderer.redraw()  # Immediately draw the updated segments
@@ -165,25 +155,5 @@ class GardenUI
         @updateLink()
         @drawingSegment = false
 
-    initMaterialSlider: (sel, defaultValue) ->
-        widget = new Widgets.HSlider $(sel)
-        widget.setValue(defaultValue)
-
-        # If the material properties add up to more than 1, rebalance them.
-        widget.valueChanged = (v) =>
-            total = 0
-            for m in @material
-                total += m.value
-            return if total <= 1
-
-            # Leave this one as-is, rescale all other material sliders.
-            for m in @material
-                continue if m == widget
-                if v == 1
-                    m.setValue(0)
-                else
-                    m.setValue( m.value * (1 - v) / (total - v) )
-
-        return widget
 
 module.exports = GardenUI
