@@ -1,3 +1,5 @@
+###
+#   @license
 #
 #   Worker thread for Zen Photon Garden.
 #
@@ -30,6 +32,7 @@
 #   FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
 #   OTHER DEALINGS IN THE SOFTWARE.
 #
+###
 
 AsmModule = require './worker-asm-core'
 

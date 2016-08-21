@@ -1,3 +1,5 @@
+###
+#   @license
 #
 #   Worker thread for Zen Photon Garden.
 #
@@ -33,6 +35,7 @@
 #   FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
 #   OTHER DEALINGS IN THE SOFTWARE.
 #
+###
 
 lineLoop = (c, i, e, b, y, g, u, v) ->
     # Unrolled inner loop for line drawing algorithm.

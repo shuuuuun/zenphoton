@@ -1,4 +1,6 @@
 /*
+ * @license
+ *
  * Low-level asm.js code for Zen Photon Garden worker thread.
  *
  * These low-level functions can be treated as asm.js code, and optimized

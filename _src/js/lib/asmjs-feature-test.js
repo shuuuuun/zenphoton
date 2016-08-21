@@ -1,4 +1,6 @@
 /*
+ * @license
+ *
  *  Feature test for asm.js
  *
  * Copyright (c) 2013 Micah Elizabeth Scott <micah@scanlime.org>
