@@ -29,6 +29,8 @@ $ = require 'jquery'
 TestAsmJs = require './lib/asmjs-feature-test'
 Segment = require './zen-segment.coffee'
 
+RAYWORKER_ASM_URI = '/js/rayworker-asm.js'
+RAYWORKER_URI = '/js/rayworker.js'
 
 class Renderer
     # Frontend for running raytracing work on several worker threads, and plotting
@@ -123,9 +125,9 @@ class Renderer
         isMobileSafari = isMobile and isAppleWebKit
 
         if isChrome or isMobileSafari or TestAsmJs()
-            @workerURI = '/js/rayworker-asm.js'
+            @workerURI = RAYWORKER_ASM_URI
         else
-            @workerURI = '/js/rayworker.js'
+            @workerURI = RAYWORKER_URI
 
     newWorker: ->
         w = new Worker(@workerURI)
