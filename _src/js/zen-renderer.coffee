@@ -25,7 +25,7 @@
 #   OTHER DEALINGS IN THE SOFTWARE.
 #
 
-require './lib/jquery-1.9.1.min.js'
+$ = require 'jquery'
 Segment = require './zen-segment.coffee'
 
 
