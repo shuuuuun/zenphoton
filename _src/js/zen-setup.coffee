@@ -25,6 +25,10 @@
 #   OTHER DEALINGS IN THE SOFTWARE.
 #
 
+require './lib/jquery-1.9.1.min.js'
+GardenUI = require './zen-ui.coffee'
+
+
 $(document).ready(() ->
     ui = new GardenUI
     ui.renderer.start()

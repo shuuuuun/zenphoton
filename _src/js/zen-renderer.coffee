@@ -25,13 +25,8 @@
 #   OTHER DEALINGS IN THE SOFTWARE.
 #
 
-class Segment
-    constructor: (@x0, @y0, @x1, @y1, @diffuse, @reflective, @transmissive) ->
-
-    length: ->
-        dx = @x1 - @x0
-        dy = @y1 - @y0
-        return Math.sqrt(dx*dx + dy*dy)
+require './lib/jquery-1.9.1.min.js'
+Segment = require './zen-segment.coffee'
 
 
 class Renderer
@@ -415,3 +410,5 @@ class Renderer
             @segments.push(new Segment(
                 x0, y0, x1, y1, diffuse, reflective, transmissive))
 
+
+module.exports = Renderer

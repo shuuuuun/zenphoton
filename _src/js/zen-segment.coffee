@@ -26,29 +26,13 @@
 #
 
 
-class UndoTracker
-    constructor: (@renderer) ->
-        @undoQueue = []
-        @redoQueue = []
+class Segment
+    constructor: (@x0, @y0, @x1, @y1, @diffuse, @reflective, @transmissive) ->
 
-    checkpoint: ->
-        @undoQueue.push(@checkpointData())
-
-    checkpointData: ->
-        return @renderer.getState()
-
-    restore: (record) ->
-        @renderer.setState(record)
-
-    undo: ->
-        if @undoQueue.length
-            @redoQueue.push(@checkpointData())
-            @restore(@undoQueue.pop())
-
-    redo: ->
-        if @redoQueue.length
-            @checkpoint()
-            @restore(@redoQueue.pop())
+    length: ->
+        dx = @x1 - @x0
+        dy = @y1 - @y0
+        return Math.sqrt(dx*dx + dy*dy)
 
 
-module.exports = UndoTracker
+module.exports = Segment

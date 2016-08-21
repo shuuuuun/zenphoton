@@ -25,6 +25,9 @@
 #   OTHER DEALINGS IN THE SOFTWARE.
 #
 
+require './lib/jquery-1.9.1.min.js'
+require './lib/jquery.hotkeys.js'
+
 
 class VSlider
     # Events
@@ -238,3 +241,10 @@ $.fn.uiActive = (n) ->
 
 $.fn.button = () ->
     return new Button this
+
+
+module.exports = {
+    VSlider: VSlider,
+    HSlider: HSlider,
+    Button: Button,
+}

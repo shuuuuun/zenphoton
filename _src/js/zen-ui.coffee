@@ -25,6 +25,12 @@
 #   OTHER DEALINGS IN THE SOFTWARE.
 #
 
+require './lib/jquery-1.9.1.min.js'
+Segment = require './zen-segment.coffee'
+Renderer = require './zen-renderer.coffee'
+Widgets = require './zen-widgets.coffee'
+UndoTracker = require './zen-undo.coffee'
+
 
 class GardenUI
     constructor: (canvasId) ->
@@ -39,7 +45,7 @@ class GardenUI
         console.log('Not Supported.')
 
         # Set up our 'exposure' slider
-        do (e = @exposureSlider = new VSlider $('#exposureSlider'), $('#workspace')) =>
+        do (e = @exposureSlider = new Widgets.VSlider $('#exposureSlider'), $('#workspace')) =>
             e.setValue(@renderer.exposure)
             e.valueChanged = (v) => @renderer.setExposure(v)
             e.beginChange = () => @undo.checkpoint()
@@ -160,7 +166,7 @@ class GardenUI
         @drawingSegment = false
 
     initMaterialSlider: (sel, defaultValue) ->
-        widget = new HSlider $(sel)
+        widget = new Widgets.HSlider $(sel)
         widget.setValue(defaultValue)
 
         # If the material properties add up to more than 1, rebalance them.
@@ -179,3 +185,5 @@ class GardenUI
                     m.setValue( m.value * (1 - v) / (total - v) )
 
         return widget
+
+module.exports = GardenUI
