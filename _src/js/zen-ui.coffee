@@ -40,9 +40,9 @@ class GardenUI
 
         # First thing first, check compatibility. If we're good, hide the error message and show the help.
         # If not, bail out now.
-        return unless @renderer.browserSupported()
-
-        console.log('Not Supported.')
+        unless @renderer.browserSupported()
+            console.log('Not Supported.')
+            return
 
         # Set up our 'exposure' slider
         do (e = @exposureSlider = new Widgets.VSlider $('#exposureSlider'), $('#workspace')) =>
