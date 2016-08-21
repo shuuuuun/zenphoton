@@ -26,7 +26,6 @@
 #
 
 require './lib/jquery-1.9.1.min.js'
-require './lib/jquery.hotkeys.js'
 
 
 class VSlider
