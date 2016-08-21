@@ -34,14 +34,12 @@ COFFEE=./node_modules/coffee-script/bin/coffee
     cat _src/js/header.js
     (
         cat \
-            _src/js/lib/jquery-1.9.1.min.js \
-            _src/js/lib/jquery.hotkeys.js \
+            node_modules/jquery/dist/jquery.min.js \
             _src/js/lib/asmjs-feature-test.js \
             $DEBUG_CODE
         (
             cat \
                 _src/js/zen-renderer.coffee \
-                _src/js/zen-widgets.coffee \
                 _src/js/zen-undo.coffee \
                 _src/js/zen-ui.coffee \
                 _src/js/zen-setup.coffee
