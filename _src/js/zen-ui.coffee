@@ -127,7 +127,7 @@ class GardenUI
         @renderer.trimSegments()
         @renderer.showSegments--
         @renderer.redraw()
-        @updateLink()
+        # @updateLink()
         @drawingSegment = false
 
 
