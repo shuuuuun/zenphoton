@@ -43,11 +43,7 @@ class GardenUI
             console.log('Not Supported.')
             return
 
-        @renderer.callback = () =>
-            $('#raysTraced').text(@renderer.raysTraced)
-            $('#raySpeed').text(@renderer.raysPerSecond()|0)
-
-        $('#histogramImage, #help')
+        $('#histogramImage')
             .mousedown (e) =>
                 e.preventDefault()
                 return if @handlingTouch
