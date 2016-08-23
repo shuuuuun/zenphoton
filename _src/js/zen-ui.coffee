@@ -48,19 +48,8 @@ class GardenUI
                 e.preventDefault()
                 return if @handlingTouch
 
-                if e.shiftKey
-                    # Moving light! This is a semi-hidden feature until I design a multi-tool
-                    # UI that seems appropriately Zen. But anyway, how Zen is it to try and move
-                    # the sun anyway? In the mean-time, shift-drag will do it.
-
-                    @undo.checkpoint()
-                    @movingLight = true
-                    @renderer.moveLight @mouseXY e
-                    @renderer.clear()
-
-                else
-                    # Starting to draw a line
-                    @lineToolBegin e
+                # Starting to draw a line
+                @lineToolBegin e
 
             .bind 'touchstart', (e) =>
                 e.preventDefault()
@@ -88,22 +77,12 @@ class GardenUI
                     e.preventDefault()
                     @lineToolEnd e
 
-                if @movingLight
-                    e.preventDefault()
-                    @updateLink()
-                    @movingLight = false
-
             .mousemove (e) =>
                 return if @handlingTouch
 
                 if @drawingSegment
                     e.preventDefault()
                     @lineToolMove e
-
-                if @movingLight
-                    @renderer.moveLight @mouseXY e
-                    @renderer.clear()
-                    e.preventDefault()
 
         @material = {
             diffuse: 1.0,
