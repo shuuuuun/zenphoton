@@ -26,8 +26,6 @@
 #
 
 $ = require 'jquery'
-TextToSVG = require 'text-to-svg'
-SvgPathParser = require 'svg-path-parser'
 Segment = require './ZenSegment.coffee'
 UndoTracker = require './ZenUndoTracker.coffee'
 
@@ -96,12 +94,6 @@ class GardenUI
             @renderer.setStateBlob(atob(saved))
         @renderer.clear()
 
-        TextToSVG.load('/fonts/Noto_Sans/NotoSans-Regular.ttf', (err, textToSVG) =>
-            @textToSVG = textToSVG
-
-            @textToSegment('hello')
-        )
-
     updateLink: ->
         document.location.hash = btoa @renderer.getStateBlob()
 
@@ -136,22 +128,5 @@ class GardenUI
         # @updateLink()
         @drawingSegment = false
 
-    textToSegment: (text) ->
-        svgPathD = @textToSVG.getD(text)
-        pathList = SvgPathParser(svgPathD)
-        pathList.forEach (path) =>
-            # path.x *= 100
-            # path.y *= 100
-            switch path.code
-                when 'M'
-                    @renderer.segments.push(new Segment(path.x, path.y, path.x, path.y, @material.diffuse, @material.reflective, @material.transmissive))
-                when 'L'
-                    s = @renderer.segments[@renderer.segments.length - 1]
-                    [s.x1, s.y1] = [path.x, path.y] if s
-            console.log path, @renderer.segments
-            # @renderer.showSegments++
-            # @renderer.trimSegments()
-            # @renderer.clear()
-            # @renderer.redraw()
 
 module.exports = GardenUI
