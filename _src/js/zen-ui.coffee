@@ -27,6 +27,7 @@
 
 $ = require 'jquery'
 TextToSVG = require 'text-to-svg'
+SvgPathParser = require 'svg-path-parser'
 Segment = require './zen-segment.coffee'
 Renderer = require './zen-renderer.coffee'
 UndoTracker = require './zen-undo.coffee'
@@ -139,6 +140,20 @@ class GardenUI
 
     textToSegment: (text) ->
         svgPathD = @textToSVG.getD(text)
-        console.log(text, svgPathD)
+        pathList = SvgPathParser(svgPathD)
+        pathList.forEach (path) =>
+            # path.x *= 100
+            # path.y *= 100
+            switch path.code
+                when 'M'
+                    @renderer.segments.push(new Segment(path.x, path.y, path.x, path.y, @material.diffuse, @material.reflective, @material.transmissive))
+                when 'L'
+                    s = @renderer.segments[@renderer.segments.length - 1]
+                    [s.x1, s.y1] = [path.x, path.y] if s
+            console.log path, @renderer.segments
+            # @renderer.showSegments++
+            # @renderer.trimSegments()
+            # @renderer.clear()
+            # @renderer.redraw()
 
 module.exports = GardenUI

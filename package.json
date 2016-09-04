@@ -27,6 +27,7 @@
     "jquery": "^3.1.0",
     "jsmin": "^1.0.1",
     "koko": "^0.5.0",
+    "svg-path-parser": "^1.0.1",
     "text-to-svg": "^3.0.1",
     "uglifyjs": "^2.4.10",
     "watchify": "^3.7.0"
