@@ -25,11 +25,17 @@
 #   OTHER DEALINGS IN THE SOFTWARE.
 #
 
-$ = require 'jquery'
 GardenUI = require './ZenGardenUI.coffee'
+Renderer = require './ZenRenderer.coffee'
 
 
-$(document).ready(() ->
-    ui = new GardenUI
-    ui.renderer.start()
-)
+class ZenPhotonGarden
+    constructor: (opts = {}) ->
+        @renderer = new Renderer(opts.canvasId)
+        @ui = new GardenUI(@renderer)
+
+    start: () ->
+        @renderer.start()
+
+
+module.exports = ZenPhotonGarden

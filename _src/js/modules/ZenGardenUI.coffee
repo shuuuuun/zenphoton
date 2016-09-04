@@ -29,14 +29,12 @@ $ = require 'jquery'
 TextToSVG = require 'text-to-svg'
 SvgPathParser = require 'svg-path-parser'
 Segment = require './ZenSegment.coffee'
-Renderer = require './ZenRenderer.coffee'
 UndoTracker = require './ZenUndoTracker.coffee'
 
 
 class GardenUI
-    constructor: (canvasId) ->
+    constructor: (@renderer) ->
 
-        @renderer = new Renderer('histogramImage')
         @undo = new UndoTracker(@renderer)
 
         # First thing first, check compatibility. If we're good, hide the error message and show the help.
@@ -45,7 +43,7 @@ class GardenUI
             console.log('Not Supported.')
             return
 
-        $('#histogramImage')
+        $(@renderer.canvas)
             .mousedown (e) =>
                 e.preventDefault()
                 return if @handlingTouch
