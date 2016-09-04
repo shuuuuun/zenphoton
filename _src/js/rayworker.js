@@ -1,2 +1,2 @@
 require('./header');
-require('./worker-noasm.coffee');
+require('./modules/worker-noasm.coffee');

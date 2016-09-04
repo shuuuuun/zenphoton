@@ -1,2 +1,2 @@
 require('./header');
-require('./worker-asm-shell.coffee');
+require('./modules/worker-asm-shell.coffee');

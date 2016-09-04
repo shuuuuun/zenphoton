@@ -26,7 +26,7 @@
 #
 
 $ = require 'jquery'
-GardenUI = require './zen-ui.coffee'
+GardenUI = require './ZenGardenUI.coffee'
 
 
 $(document).ready(() ->

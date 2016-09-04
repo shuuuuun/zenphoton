@@ -1,2 +1,2 @@
 require('./header');
-require('./zen-setup.coffee');
+require('./modules/ZenSetup.coffee');

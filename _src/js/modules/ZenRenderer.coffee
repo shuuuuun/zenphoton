@@ -26,8 +26,8 @@
 #
 
 $ = require 'jquery'
-TestAsmJs = require './lib/asmjs-feature-test'
-Segment = require './zen-segment.coffee'
+TestAsmJs = require '../lib/asmjs-feature-test'
+Segment = require './ZenSegment.coffee'
 
 RAYWORKER_ASM_URI = '/js/rayworker-asm.js'
 RAYWORKER_URI = '/js/rayworker.js'

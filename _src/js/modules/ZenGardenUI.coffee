@@ -28,9 +28,9 @@
 $ = require 'jquery'
 TextToSVG = require 'text-to-svg'
 SvgPathParser = require 'svg-path-parser'
-Segment = require './zen-segment.coffee'
-Renderer = require './zen-renderer.coffee'
-UndoTracker = require './zen-undo.coffee'
+Segment = require './ZenSegment.coffee'
+Renderer = require './ZenRenderer.coffee'
+UndoTracker = require './ZenUndoTracker.coffee'
 
 
 class GardenUI
