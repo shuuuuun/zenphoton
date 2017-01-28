@@ -21,12 +21,12 @@
     "watch-debug": "watchify _src/js/entry.js -o public/js/zenphoton.js --verbose"
   },
   "devDependencies": {
-    "browserify": "^13.1.0",
+    "browserify": "^14.0.0",
     "coffee-script": "^1.10.0",
     "coffeeify": "^2.0.1",
     "jquery": "^3.1.0",
     "jsmin": "^1.0.1",
-    "koko": "^0.5.0",
+    "koko": "^0.6.0",
     "svg-path-parser": "^1.0.1",
     "text-to-svg": "^3.0.1",
     "uglifyjs": "^2.4.10",
