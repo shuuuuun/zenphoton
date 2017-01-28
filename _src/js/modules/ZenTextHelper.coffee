@@ -12,12 +12,18 @@ MATERIAL = {
 
 class TextHelper
     constructor: (@renderer) ->
-
-        TextToSVG.load(FONT_URL, (err, textToSVG) =>
-            @textToSVG = textToSVG
-
+        @loadFont().then(() =>
             # @textToSegment('hello')
             @textToSegment('Hello World!', 200, 200)
+        )
+
+    loadFont: () ->
+        return new Promise((resolve) =>
+            TextToSVG.load(FONT_URL, (err, textToSVG) =>
+                console.warn err if err
+                @textToSVG = textToSVG
+                resolve()
+            )
         )
 
     textToSegment: (text, startX = 0, startY = 0) ->
