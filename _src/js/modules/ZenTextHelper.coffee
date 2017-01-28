@@ -16,17 +16,20 @@ class TextHelper
         TextToSVG.load(FONT_URL, (err, textToSVG) =>
             @textToSVG = textToSVG
 
-            @textToSegment('hello')
+            # @textToSegment('hello')
+            @textToSegment('Hello World!', 200, 200)
         )
 
-    textToSegment: (text) ->
+    textToSegment: (text, startX = 0, startY = 0) ->
         console.log text
         svgPathD = @textToSVG.getD(text)
         pathList = SvgPathParser(svgPathD)
-        last = { x: 0, y: 0 }
+        last = { x: startX, y: startY }
         pathList.forEach (path) =>
-            path.y += 100 unless isNaN(path.y)
-            path.y1 += 100 unless isNaN(path.y1)
+            path.x  += startX unless isNaN(path.x)
+            path.x1 += startX unless isNaN(path.x1)
+            path.y  += startY unless isNaN(path.y)
+            path.y1 += startY unless isNaN(path.y1)
             switch path.code
                 # when 'M'
                 #     @renderer.segments.push(new Segment(path.x, path.y, path.x, path.y, MATERIAL.diffuse, MATERIAL.reflective, MATERIAL.transmissive))
@@ -43,7 +46,7 @@ class TextHelper
                     
             [last.x, last.y] = [path.x, path.y]
             console.log path
-        @renderer.showSegments++
+        # @renderer.showSegments++
         # @renderer.trimSegments()
         @renderer.clear()
         @renderer.redraw()
