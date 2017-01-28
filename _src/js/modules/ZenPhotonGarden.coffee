@@ -37,5 +37,8 @@ class ZenPhotonGarden
     start: () ->
         @renderer.start()
 
+    stop: () ->
+        @renderer.stop()
+
 
 module.exports = ZenPhotonGarden
