@@ -19,32 +19,6 @@ class TextHelper
             @textToSegment('hello')
         )
 
-    lineToolBegin: (e) ->
-        @undo.checkpoint()
-
-        [x, y] = @mouseXY e
-        @renderer.segments.push(new Segment(x, y, x, y, MATERIAL.diffuse, MATERIAL.reflective, MATERIAL.transmissive))
-
-        @drawingSegment = true
-        @renderer.showSegments++
-        @renderer.redraw()
-
-    lineToolMove: (e) ->
-        # Update a line segment previously started with beginLine
-
-        s = @renderer.segments[@renderer.segments.length - 1]
-        [s.x1, s.y1] = @mouseXY e if s
-
-        @renderer.clear()   # Asynchronously start rendering the new scene
-        @renderer.redraw()  # Immediately draw the updated segments
-
-    lineToolEnd: (e) ->
-        @renderer.trimSegments()
-        @renderer.showSegments--
-        @renderer.redraw()
-        # @updateLink()
-        @drawingSegment = false
-
     textToSegment: (text) ->
         console.log text
         svgPathD = @textToSVG.getD(text)
