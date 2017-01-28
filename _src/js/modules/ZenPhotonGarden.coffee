@@ -25,6 +25,7 @@
 #   OTHER DEALINGS IN THE SOFTWARE.
 #
 
+TextHelper = require './ZenTextHelper.coffee'
 GardenUI = require './ZenGardenUI.coffee'
 Renderer = require './ZenRenderer.coffee'
 
@@ -33,6 +34,7 @@ class ZenPhotonGarden
     constructor: (opts = {}) ->
         @renderer = new Renderer(opts.canvasId)
         @ui = new GardenUI(@renderer)
+        @texthelper = new TextHelper(@renderer)
 
     start: () ->
         @renderer.start()
